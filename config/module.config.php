@@ -90,6 +90,7 @@ return [
     'zf-content-validation' => [
         'Strapieno\NightClubGirlReview\Api\V1\Rest\Controller' => [
             'input_filter' => 'Strapieno\NightClubGirlReview\Api\InputFilter\DefaultInputFilter',
+            'POST' => 'Strapieno\NightClubGirlReview\Api\InputFilter\PostInputFilter'
         ]
     ],
     'strapieno_input_filter_specs' => [
@@ -111,6 +112,19 @@ return [
             "rating" => [
                 'name' => 'rating',
                 'type' => 'Strapieno\NightClubGirlReview\Api\InputFilter\DefaultReviewInputFilter',
+            ]
+        ],
+        'Strapieno\NightClubGirlReview\Api\InputFilter\PostInputFilter' => [
+            'merge' => 'Strapieno\NightClubGirlReview\Api\InputFilter\DefaultInputFilter',
+            "girl_id" => [
+                'name' => 'girl_id',
+                'validators' => [
+                    // TODO change validator
+                    'nightclubentityexist' => [
+                        'name' => 'nightclubgirl-entityexist',
+                        'break_chain_on_failure' => true
+                    ]
+                ]
             ]
         ]
     ]
