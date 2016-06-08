@@ -1,5 +1,39 @@
 <?php
 return [
+    'service_manager' => [
+        'factories' => [
+            'Strapieno\Utils\Listener\ListenerManager' => 'Strapieno\Utils\Listener\ListenerManagerFactory'
+        ],
+        'invokables' => [
+            'Strapieno\Utils\Delegator\AttachListenerDelegator' =>  'Strapieno\Utils\Delegator\AttachListenerDelegator'
+        ],
+        'aliases' => [
+            'listenerManager' => 'Strapieno\Utils\Listener\ListenerManager'
+        ],
+    ],
+    'service-listeners' => [
+        'initializers' => [
+            'Strapieno\NightClubGirl\Model\GirlModelInitializer'
+        ],
+        'invokables' => [
+            'Strapieno\NightClubGirlReview\Api\V1\Listener\NightClubGirlListener' => 'Strapieno\NightClubGirlReview\Api\V1\Listener\NightClubGirlListener'
+        ]
+    ],
+    'attach-listeners' => [
+        'Application' => [
+            'Strapieno\Utils\Listener\InjectRouteParamsInRequest'
+        ],
+        'Strapieno\NightClubGirlReview\Api\V1\Rest\Controller' => [
+            'Strapieno\NightClubGirlReview\Api\V1\Listener\NightClubGirlListener'
+        ]
+    ],
+    'controllers' => [
+        'delegators' => [
+            'Strapieno\NightClubGirlReview\Api\V1\Rest\Controller' => [
+                'Strapieno\Utils\Delegator\AttachListenerDelegator',
+            ]
+        ],
+    ],
     'router' => [
         'routes' => [
             'api-rest' => [
