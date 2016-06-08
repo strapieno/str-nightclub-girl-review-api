@@ -1,46 +1,5 @@
 <?php
 return [
-    'service_manager' => [
-        'factories' => [
-            'Strapieno\Utils\Listener\ListenerManager' => 'Strapieno\Utils\Listener\ListenerManagerFactory'
-        ],
-        'invokables' => [
-            'Strapieno\Utils\Delegator\AttachListenerDelegator' =>  'Strapieno\Utils\Delegator\AttachListenerDelegator'
-        ],
-        'aliases' => [
-            'listenerManager' => 'Strapieno\Utils\Listener\ListenerManager'
-        ],
-        // Config of nightclub_id in route exist
-        'delegators' => [
-            'Application' => [
-                'Strapieno\Utils\Delegator\AttachListenerDelegator',
-            ]
-        ],
-    ],
-    'service-listeners' => [
-        'initializers' => [
-            'Strapieno\NightClub\Model\NightClubModelInitializer'
-        ],
-        'invokables' => [
-            'Strapieno\Utils\Listener\InjectRouteParamsInRequest' => 'Strapieno\Utils\Listener\InjectRouteParamsInRequest',
-            'Strapieno\NightClubGirlReview\Api\V1\Listener\NightClubRestListener' => 'Strapieno\NightClubGirlReview\Api\V1\Listener\NightClubRestListener'
-        ]
-    ],
-    'attach-listeners' => [
-        'Application' => [
-            'Strapieno\Utils\Listener\InjectRouteParamsInRequest'
-        ],
-        'Strapieno\NightClubGirlReview\Api\V1\Rest\Controller' => [
-            'Strapieno\NightClubGirlReview\Api\V1\Listener\NightClubRestListener'
-        ]
-    ],
-    'controllers' => [
-        'delegators' => [
-            'Strapieno\NightClubGirlReview\Api\V1\Rest\Controller' => [
-                'Strapieno\Utils\Delegator\AttachListenerDelegator',
-            ]
-        ],
-    ],
     'router' => [
         'routes' => [
             'api-rest' => [
@@ -139,8 +98,8 @@ return [
         ],
         'Strapieno\NightClubGirlReview\Api\InputFilter\DefaultInputFilter' => [
             'merge' => 'Strapieno\NightClubGirlReview\Model\InputFilter\DefaultInputFilter',
-            "nightclub_id" => [
-                'name' => 'nightclub_id',
+            "girl_id" => [
+                'name' => 'girl_id',
                 'require' => true,
                 'allow_empty' => false
             ],
